@@ -1,5 +1,5 @@
 package com.wasdat.movied;
-
+import com.microsoft.windowsazure.mobileservices.*;
 import android.content.Intent;
 import android.net.Uri;
 import android.provider.MediaStore;
@@ -15,12 +15,18 @@ public class MainActivity extends AppCompatActivity {
 
     VideoView result_video;
 
+    private MobileServiceClient mClient;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Button click = findViewById(R.id.recordButton);
         result_video = findViewById(R.id.videoView);
+        //azure additional code
+        mClient = new MobileServiceClient(
+      "https://moviednw.azurewebsites.net",      
+      this);
     }
 
     public void dispatchTakeVideoIntent(View v) {
@@ -36,5 +42,6 @@ public class MainActivity extends AppCompatActivity {
             Uri videoUri = data.getData();
             result_video.setVideoURI(videoUri);
         }
+        
     }
 }
